@@ -1,7 +1,7 @@
 Webcam Face Glitch
 =================
 
-https://face-glitch-webcam.glitch.me/
+https://webcam-face-glitch.glitch.me/
 
 Glitch face area in webcam screen.
 ml5js is used to detect face.

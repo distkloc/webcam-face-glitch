@@ -13,14 +13,14 @@ let canProcess = true;
 
 const detectionOptions = {
   withLandmarks: true,
-  withDescriptors: false,
+  withDescriptors: false
 };
 
 function preload() {
-  flowLineShader = loadShader("webcam.vert", "flow-line.frag");
-  shiftLineShader = loadShader("webcam.vert", "shift-line.frag");
-  shiftColorShader = loadShader("webcam.vert", "shift-color.frag");
-  scatImageShader = loadShader("webcam.vert", "scat-image.frag");
+  flowLineShader = loadShader("shader/webcam.vert", "shader/flow-line.frag");
+  shiftLineShader = loadShader("shader/webcam.vert", "shader/shift-line.frag");
+  shiftColorShader = loadShader("shader/webcam.vert", "shader/shift-color.frag");
+  scatImageShader = loadShader("shader/webcam.vert", "shader/scat-image.frag");
 }
 
 // https://github.com/aferriss/p5jsShaderExamples/blob/gh-pages/4_image-effects/4-10_two-pass-blur/sketch.js
@@ -118,7 +118,7 @@ class FlowLine {
     );
     this.shader.setUniform("uTexelSize", [
       1.0 / capture.width,
-      1.0 / capture.height,
+      1.0 / capture.height
     ]);
 
     this.y %= capture.height;
@@ -151,7 +151,7 @@ class ShiftLine {
         const params = {
           rangeMin: rangeMin,
           rangeMax: rangeMin + floor(random(1, prePass.height - rangeMin)),
-          offsetX: floor(random(-80, 80)),
+          offsetX: floor(random(-80, 80))
         };
         this.paramsCache[i] = params;
         this.setParamsUniform(params, triggerIndex);
@@ -170,7 +170,7 @@ class ShiftLine {
 
     this.shader.setUniform("uTexelSize", [
       1.0 / prePass.width,
-      1.0 / prePass.height,
+      1.0 / prePass.height
     ]);
 
     this.pass.rect(0, 0, prePass.width, prePass.height);
@@ -208,7 +208,7 @@ class ShiftColor {
 
     this.shader.setUniform("uTexelSize", [
       1.0 / prePass.width,
-      1.0 / prePass.height,
+      1.0 / prePass.height
     ]);
 
     let randR;
@@ -218,17 +218,17 @@ class ShiftColor {
     if (floor(random(100)) > 65) {
       randR = [
         floor(random(-this.range, this.range)),
-        floor(random(-this.range, this.range)),
+        floor(random(-this.range, this.range))
       ];
 
       randG = [
         floor(random(-this.range, this.range)),
-        floor(random(-this.range, this.range)),
+        floor(random(-this.range, this.range))
       ];
 
       randB = [
         floor(random(-this.range, this.range)),
-        floor(random(-this.range, this.range)),
+        floor(random(-this.range, this.range))
       ];
     } else {
       randR = [0, 0];
@@ -260,7 +260,7 @@ class ScatImage {
 
     this.shader.setUniform("uTexelSize", [
       1.0 / prePass.width,
-      1.0 / prePass.height,
+      1.0 / prePass.height
     ]);
 
     let triggerIndex = 0;
@@ -269,14 +269,14 @@ class ScatImage {
         const params = {};
         params.pos = [
           faceX + floor(random(-faceWidth * 0.3, faceWidth * 0.7)),
-          faceY + floor(random(-faceHeight * 0.1, faceHeight)),
+          faceY + floor(random(-faceHeight * 0.1, faceHeight))
         ];
 
         const relativeStartX = floor(random(0, faceWidth - 30));
 
         params.start = [
           faceX + relativeStartX,
-          faceY + floor(random(0, faceHeight - 50)),
+          faceY + floor(random(0, faceHeight - 50))
         ];
         params.rectWidth = floor(random(60, faceWidth - relativeStartX));
         params.rectHeight = floor(random(1, 50));
